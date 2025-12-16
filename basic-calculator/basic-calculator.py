@@ -32,12 +32,31 @@ def suma():
     result_operation += int(entry.get())
     result.set(result_operation)
 
+def resta():
+    global operador
+    global operation
+    global result_operation
+    operador = "resta"
+    operation = "-"
+
+    first_num = int(entry.get())
+    if result_operation == 0:
+       result_operation = first_num
+
+    else:
+        result_operation -= first_num
+        result.set(result_operation)
 
 def results_general():
     global result_operation
     global operation
     if operation == "+":
         result_operation += int(entry.get())
+        result.set(result_operation)
+        result_operation = 0
+    
+    if operation == "-":
+        result_operation -= int(entry.get())
         result.set(result_operation)
         result_operation = 0
 
@@ -120,7 +139,7 @@ button_3.bind("<Button-1>", lambda event: show_number(button_3))
 button_menos = tk.Button(root, text="-")
 button_menos.config(padx=50, pady=50, bg="#4472C4", fg="#fff", font=("Arial",15,"bold"))
 button_menos.grid(row=3, column=3, sticky="nsew")
-button_menos.bind("<Button-1>", lambda event: operations("-"))
+button_menos.bind("<Button-1>", lambda event: resta())
 
 ############################################################################################
 button_0 = tk.Button(root, text="0")
