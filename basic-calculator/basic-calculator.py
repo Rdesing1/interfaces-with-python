@@ -11,9 +11,6 @@ operation = ""
 result_operation = 0
 
 #functions
-def operations():
-    pass
-
 def show_number(button):
     global operador
     if operador != "":
@@ -47,9 +44,43 @@ def resta():
         result_operation -= first_num
         result.set(result_operation)
 
+def multiplicar():
+    global operador
+    global operation
+    global result_operation
+    operador = "mult"
+    operation = "*"
+
+    first_num = int(entry.get())
+    if result_operation == 0:
+       result_operation = first_num
+    else:
+        result_operation *= first_num
+        result.set(result_operation)
+
+def dividir():
+    global operador
+    global operation
+    global result_operation
+    operador = "div"
+    operation = "/"
+
+    first_num = int(entry.get())
+    if result_operation == 0:
+       result_operation = first_num
+    else:
+        if(first_num == 0):
+            result.set("Cannot divide by zero")
+        else:   
+            result_operation /= first_num
+            result.set(int(result_operation))
+
+    
+
 def results_general():
     global result_operation
     global operation
+
     if operation == "+":
         result_operation += int(entry.get())
         result.set(result_operation)
@@ -59,6 +90,20 @@ def results_general():
         result_operation -= int(entry.get())
         result.set(result_operation)
         result_operation = 0
+    
+    if operation == "*":
+        result_operation *= int(entry.get())
+        result.set(result_operation)
+        result_operation = 0
+
+    if operation == "/":
+        first_num = int(entry.get())
+        if(first_num == 0):
+            result.set("Cannot divide by zero")
+        else:
+            result_operation /= int(entry.get())
+            result.set(int(result_operation))
+            result_operation = 0
 
 
 
@@ -91,7 +136,7 @@ button_9.bind("<Button-1>", lambda event: show_number(button_9))
 button_div = tk.Button(root, text="/")
 button_div.config(padx=50, pady=50, bg="#4472C4", fg="#fff", font=("Arial",15,"bold"))
 button_div.grid(row=1, column=3, sticky="nsew")
-button_div.bind("<Button-1>", lambda event: operations("/"))
+button_div.bind("<Button-1>", lambda event: dividir())
 
 
 ###########################################################################################
@@ -115,7 +160,7 @@ button_6.bind("<Button-1>", lambda event: show_number(button_6))
 button_mul = tk.Button(root, text="x")
 button_mul.config(padx=50, pady=50, bg="#4472C4", fg="#fff", font=("Arial",15,"bold"))
 button_mul.grid(row=2, column=3, sticky="nsew")
-button_mul.bind("<Button-1>", lambda event: operations("x"))
+button_mul.bind("<Button-1>", lambda event: multiplicar())
 
 
 ############################################################################################
